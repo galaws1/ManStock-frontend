@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { font-family: theme('fontFamily.sans'); color: theme('colors.encre.DEFAULT'); background: theme('colors.papier'); }
+  body { font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  /* Titres : Archivo en largeur réduite, façon marquage d'entrepôt. */
+  h1, h2, h3 { font-stretch: 82%; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.25rem; }
+  table { font-variant-numeric: tabular-nums; }
+  :focus-visible { outline: 2px solid theme('colors.ambre.DEFAULT'); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded px-3.5 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primaire { @apply btn bg-acier text-white hover:bg-acier-clair; }
+  .btn-secondaire { @apply btn border border-ligne bg-white text-encre hover:bg-papier; }
+  .btn-danger { @apply btn bg-alerte text-white hover:brightness-110; }
+  .btn-discret { @apply btn px-2 py-1.5 font-medium text-encre-douce hover:bg-acier-pale hover:text-encre; }
+  .champ { @apply w-full rounded border border-ligne bg-white px-3 py-2 text-sm text-encre placeholder:text-encre-douce/60 focus:border-acier focus:outline-none focus:ring-2 focus:ring-ambre/40; }
+  .champ-erreur { @apply border-alerte focus:ring-alerte/30; }
+  .etiquette { @apply mb-1 block text-sm font-medium text-encre; }
+  /* Bande « ruban de signalisation » : l'unique élément décoratif de l'application. */
+  .ruban { background: repeating-linear-gradient(-45deg, theme('colors.ambre.DEFAULT') 0 14px, theme('colors.acier.DEFAULT') 14px 28px); }
+}
+
+/* Impression (tickets, factures) : seul le document est imprimé. */
+@media print {
+  aside, header, .no-print { display: none !important; }
+  main { max-width: none !important; padding: 0 !important; }
+  body, html { background: white !important; }
+  .imprimable { border: none !important; box-shadow: none !important; }
+}
